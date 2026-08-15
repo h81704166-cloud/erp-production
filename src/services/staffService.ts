@@ -1,5 +1,6 @@
 import { User, UserRole } from '../types/erp';
 import { ERPDatabase } from './db';
+import { apiUrl } from '../config/api';
 
 export interface CreateStaffPayload {
   name: string;
@@ -22,7 +23,7 @@ export const StaffService = {
   async fetchStaffList(companyId?: string): Promise<User[]> {
     try {
       const token = ERPDatabase.getJwtToken();
-      const res = await fetch('/api/staff', {
+      const res = await fetch(apiUrl('/api/staff'), {
         headers: {
           'Authorization': `Bearer ${token}`,
           'X-Company-ID': companyId || ERPDatabase.getCompany().id,
@@ -53,7 +54,7 @@ export const StaffService = {
   async createStaff(payload: CreateStaffPayload): Promise<{ success: boolean; message: string; staff?: User; error?: string }> {
     try {
       const token = ERPDatabase.getJwtToken();
-      const res = await fetch('/api/staff', {
+      const res = await fetch(apiUrl('/api/staff'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -101,7 +102,7 @@ export const StaffService = {
   async updateStaff(staffId: string, payload: UpdateStaffPayload): Promise<{ success: boolean; message: string; error?: string }> {
     try {
       const token = ERPDatabase.getJwtToken();
-      const res = await fetch(`/api/staff/${staffId}`, {
+      const res = await fetch(apiUrl(`/api/staff/${staffId}`), {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -140,7 +141,7 @@ export const StaffService = {
   async resetStaffPassword(staffId: string, newPin: string): Promise<{ success: boolean; message: string; error?: string }> {
     try {
       const token = ERPDatabase.getJwtToken();
-      const res = await fetch(`/api/staff/${staffId}/reset-password`, {
+      const res = await fetch(apiUrl(`/api/staff/${staffId}/reset-password`), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -176,7 +177,7 @@ export const StaffService = {
   async deleteStaff(staffId: string): Promise<{ success: boolean; message: string; error?: string }> {
     try {
       const token = ERPDatabase.getJwtToken();
-      const res = await fetch(`/api/staff/${staffId}`, {
+      const res = await fetch(apiUrl(`/api/staff/${staffId}`), {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,

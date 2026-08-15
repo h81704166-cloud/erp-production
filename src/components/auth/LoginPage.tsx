@@ -27,6 +27,7 @@ import {
 } from 'lucide-react';
 import { User as ERPUser, Company, UserRole } from '../../types/erp';
 import { ERPDatabase } from '../../services/db';
+import { apiUrl } from '../../config/api';
 
 interface LoginPageProps {
   onLoginSuccess: (user: ERPUser) => void;
@@ -143,7 +144,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({
     setIsSendingOtp(true);
 
     try {
-      const response = await fetch('/api/auth/send-otp', {
+      const response = await fetch(apiUrl('/api/auth/send-otp'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: emailOrPhone.trim() }),
@@ -197,7 +198,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({
     setIsSendingResetOtp(true);
 
     try {
-      const response = await fetch('/api/auth/send-otp', {
+      const response = await fetch(apiUrl('/api/auth/send-otp'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: emailOrPhone.trim() }),
@@ -251,7 +252,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({
     setIsSubmittingReset(true);
 
     try {
-      const response = await fetch('/api/auth/reset-password', {
+      const response = await fetch(apiUrl('/api/auth/reset-password'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -307,7 +308,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({
 
       setIsSubmitting(true);
       try {
-        const verifyRes = await fetch('/api/auth/verify-otp', {
+        const verifyRes = await fetch(apiUrl('/api/auth/verify-otp'), {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email: emailOrPhone.trim(), otp: otp.trim() }),
@@ -366,7 +367,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({
 
       setIsSubmitting(true);
       try {
-        const loginRes = await fetch('/api/auth/login', {
+        const loginRes = await fetch(apiUrl('/api/auth/login'), {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email: emailOrPhone.trim(), password }),

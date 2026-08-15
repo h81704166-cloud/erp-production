@@ -36,6 +36,7 @@ import {
 } from '../types/erp';
 import { saveOfflineBill, saveOfflinePurchase } from './offlineDb';
 import { syncWorker } from './syncWorker';
+import { apiUrl } from '../config/api';
 
 const STORAGE_KEYS = {
   COMPANY: 'erp_company',
@@ -1396,7 +1397,7 @@ export class ERPDatabase {
     // 5. Notify server to delete tenant data
     const token = this.getJwtToken();
     if (token) {
-      fetch(`/api/admin/companies/${companyId}`, {
+      fetch(apiUrl(`/api/admin/companies/${companyId}`), {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,

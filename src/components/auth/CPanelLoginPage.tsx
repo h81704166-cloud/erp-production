@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { User as ERPUser } from '../../types/erp';
 import { ERPDatabase } from '../../services/db';
+import { apiUrl } from '../../config/api';
 
 interface CPanelLoginPageProps {
   onLoginSuccess: (user: ERPUser, masterToken?: string) => void;
@@ -83,7 +84,7 @@ export const CPanelLoginPage: React.FC<CPanelLoginPageProps> = ({
 
     try {
       // Attempt backend isolated authentication API call first
-      const response = await fetch('/api/auth/cpanel-login', {
+      const response = await fetch(apiUrl('/api/auth/cpanel-login'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

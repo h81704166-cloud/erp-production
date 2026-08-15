@@ -13,6 +13,7 @@ import {
   overwriteLocalBillWithServer,
   overwriteLocalPurchaseWithServer,
 } from './offlineDb';
+import { apiUrl } from '../config/api';
 
 export class OfflineSyncWorker {
   private syncIntervalMs: number;
@@ -121,7 +122,7 @@ export class OfflineSyncWorker {
         (typeof localStorage !== 'undefined' && localStorage.getItem('erp_jwt_token')) ||
         '';
 
-      const response = await fetch('/api/sync/transactions', {
+      const response = await fetch(apiUrl('/api/sync/transactions'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

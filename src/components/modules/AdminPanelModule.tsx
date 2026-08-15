@@ -45,6 +45,7 @@ import {
 import { Company, SystemFeature, ActiveUserSession, UserRole } from '../../types/erp';
 import { ERPDatabase } from '../../services/db';
 import { syncWorker } from '../../services/syncWorker';
+import { apiUrl } from '../../config/api';
 
 interface AdminPanelModuleProps {
   onDataChange?: () => void;
@@ -189,7 +190,7 @@ export const AdminPanelModule: React.FC<AdminPanelModuleProps> = ({
         users: ERPDatabase.getUsers(),
       };
 
-      const res = await fetch('/api/backup/server/sync', {
+      const res = await fetch(apiUrl('/api/backup/server/sync'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -246,7 +247,7 @@ export const AdminPanelModule: React.FC<AdminPanelModuleProps> = ({
         headers['Authorization'] = `Bearer ${token}`;
       }
 
-      const res = await fetch('/api/admin/server-health', {
+      const res = await fetch(apiUrl('/api/admin/server-health'), {
         method: 'GET',
         headers,
       });

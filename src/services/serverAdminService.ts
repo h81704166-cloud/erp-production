@@ -4,6 +4,8 @@
  * Threshold Alerts, and Audit Logging.
  */
 
+import { apiUrl } from '../config/api';
+
 export interface ServerMetrics {
   timestamp: string;
   environment: {
@@ -171,7 +173,7 @@ export class ServerAdminService {
    */
   static async login(email: string, password: string, totpCode?: string): Promise<{ success: boolean; token?: string; error?: string; remainingSeconds?: number }> {
     try {
-      const response = await fetch('/api/server-admin/login', {
+      const response = await fetch(apiUrl('/api/server-admin/login'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password, totpCode }),
@@ -205,7 +207,7 @@ export class ServerAdminService {
     const token = this.getToken();
     if (token) {
       try {
-        await fetch('/api/server-admin/logout', {
+        await fetch(apiUrl('/api/server-admin/logout'), {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -225,7 +227,7 @@ export class ServerAdminService {
    */
   static async fetchMetrics(): Promise<ServerMetrics> {
     const token = this.getToken();
-    const response = await fetch('/api/server-admin/metrics', {
+    const response = await fetch(apiUrl('/api/server-admin/metrics'), {
       headers: {
         Authorization: `Bearer ${token || ''}`,
       },
@@ -247,7 +249,7 @@ export class ServerAdminService {
    */
   static async fetchHistory(timeframe: '1h' | '6h' | '24h'): Promise<MetricHistoryPoint[]> {
     const token = this.getToken();
-    const response = await fetch(`/api/server-admin/history?timeframe=${timeframe}`, {
+    const response = await fetch(apiUrl(`/api/server-admin/history?timeframe=${timeframe}`), {
       headers: {
         Authorization: `Bearer ${token || ''}`,
       },
@@ -266,7 +268,7 @@ export class ServerAdminService {
    */
   static async fetchHealthReport(): Promise<ErpHealthReport> {
     const token = this.getToken();
-    const response = await fetch('/api/server-admin/health', {
+    const response = await fetch(apiUrl('/api/server-admin/health'), {
       headers: {
         Authorization: `Bearer ${token || ''}`,
       },
@@ -284,7 +286,7 @@ export class ServerAdminService {
    */
   static async fetchAlerts(): Promise<{ thresholds: AlertThresholds; activeAlerts: AlertItem[] }> {
     const token = this.getToken();
-    const response = await fetch('/api/server-admin/alerts', {
+    const response = await fetch(apiUrl('/api/server-admin/alerts'), {
       headers: {
         Authorization: `Bearer ${token || ''}`,
       },
@@ -302,7 +304,7 @@ export class ServerAdminService {
    */
   static async updateThresholds(thresholds: Partial<AlertThresholds>): Promise<AlertThresholds> {
     const token = this.getToken();
-    const response = await fetch('/api/server-admin/alerts/config', {
+    const response = await fetch(apiUrl('/api/server-admin/alerts/config'), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -324,7 +326,7 @@ export class ServerAdminService {
    */
   static async fetchAuditLogs(): Promise<ServerAdminAuditLog[]> {
     const token = this.getToken();
-    const response = await fetch('/api/server-admin/audit-logs', {
+    const response = await fetch(apiUrl('/api/server-admin/audit-logs'), {
       headers: {
         Authorization: `Bearer ${token || ''}`,
       },

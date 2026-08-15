@@ -17,6 +17,7 @@ import {
 import { AuditLog, SecurityAuditResult, PaymentTransactionLog } from '../../types/erp';
 import { Badge } from '../common/Badge';
 import { ERPDatabase } from '../../services/db';
+import { apiUrl } from '../../config/api';
 
 interface AuditLogsModuleProps {
   logs: AuditLog[];
@@ -240,7 +241,7 @@ export const AuditLogsModule: React.FC<AuditLogsModuleProps> = ({ logs = [], onR
 
     // Check 5: PostgreSQL Row Level Security (RLS) & Live API
     try {
-      const res = await fetch('/api/health');
+      const res = await fetch(apiUrl('/api/health'));
       if (res.ok) {
         const data = await res.json();
         checks.push({

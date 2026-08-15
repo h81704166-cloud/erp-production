@@ -43,6 +43,7 @@ import { generateFullPostgresSQL } from '../../services/sqlGenerator';
 import { Badge } from '../common/Badge';
 import { Modal } from '../common/Modal';
 import { UpiQRCode } from '../common/UpiQRCode';
+import { apiUrl } from '../../config/api';
 
 interface SettingsModuleProps {
   company: Company;
@@ -157,7 +158,7 @@ export const SettingsModule: React.FC<SettingsModuleProps> = ({ company, onRefre
       };
 
       const token = (typeof localStorage !== 'undefined' && localStorage.getItem('erp_jwt_token')) || '';
-      const res = await fetch('/api/backup/server/sync', {
+      const res = await fetch(apiUrl('/api/backup/server/sync'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -262,7 +263,7 @@ export const SettingsModule: React.FC<SettingsModuleProps> = ({ company, onRefre
 
     setIsChangingPassword(true);
     try {
-      await fetch('/api/auth/change-password', {
+      await fetch(apiUrl('/api/auth/change-password'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ newPassword: settingsNewPassword }),
@@ -1632,7 +1633,7 @@ export const SettingsModule: React.FC<SettingsModuleProps> = ({ company, onRefre
               </button>
 
               <a
-                href="/api/backup/server"
+                href={apiUrl('/api/backup/server')}
                 download={`server_erp_backup_${Date.now()}.json`}
                 className="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-emerald-400 font-bold text-xs rounded-xl flex items-center gap-1.5 shadow-xs"
               >

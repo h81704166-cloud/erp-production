@@ -1,6 +1,7 @@
 import { ERPDatabase } from './db';
 import { BackupService } from './backupService';
 import { Sale, Product, Party, Purchase, Expense } from '../types/erp';
+import { apiUrl } from '../config/api';
 
 export interface CompanySheetsConfig {
   companyId: string;
@@ -63,7 +64,7 @@ export class GoogleSheetsService {
           const companyData = this.getCompanyData(cfg.companyId);
           const token = (typeof localStorage !== 'undefined' && localStorage.getItem('erp_jwt_token')) || 'DEMO_JWT_TOKEN';
           
-          await fetch('/api/backup/server/sync', {
+          await fetch(apiUrl('/api/backup/server/sync'), {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

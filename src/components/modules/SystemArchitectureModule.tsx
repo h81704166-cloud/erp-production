@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ShieldCheck, FileCode, Copy, Check, Download, Database, Server, RefreshCw, Key, Lock, AlertTriangle } from 'lucide-react';
 import { Badge } from '../common/Badge';
+import { apiUrl } from '../../config/api';
 
 interface ArchitectureDocsData {
   schemaSql?: string;
@@ -30,7 +31,7 @@ export const SystemArchitectureModule: React.FC = () => {
       '';
 
     try {
-      const res = await fetch('/api/admin/architecture-docs', {
+      const res = await fetch(apiUrl('/api/admin/architecture-docs'), {
         headers: {
           Authorization: token ? `Bearer ${token}` : '',
         },
