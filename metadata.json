@@ -1,0 +1,6 @@
+{
+  "name": "Enterprise ERP System",
+  "description": "Production-ready Enterprise ERP featuring POS Billing, Inventory, Multi-Tenant Accounts, Khata, GST Reports, Cash/Bank Books, Financial Statements, Audit Logs, and Offline Support.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

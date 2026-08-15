@@ -1,0 +1,227 @@
+@import "tailwindcss";
+
+@variant dark (&:where(.dark, .dark *));
+
+/* Root Default Theme CSS Variables (Enterprise Light & Dark Mode System) */
+:root {
+  --color-primary: #2563EB;
+  --color-primary-hover: #1D4ED8;
+  --color-primary-light: rgba(37, 99, 235, 0.1);
+  --color-primary-rgb: 37, 99, 235;
+  --color-accent: #14B8A6;
+  --color-accent-hover: #0D9488;
+  --color-accent-light: rgba(20, 184, 166, 0.15);
+  --color-success: #10B981;
+  --color-warning: #F59E0B;
+  --color-danger: #EF4444;
+  --color-app-bg: #F8FAFC;
+  --color-sidebar-bg: #0F172A;
+  --color-topbar-bg: #FFFFFF;
+  --color-card-bg: #FFFFFF;
+  --color-card-border: #E2E8F0;
+  --color-surface-elevated: #FFFFFF;
+  --color-app-bg-light: #F8FAFC;
+  --color-text: #0F172A;
+  --color-text-secondary: #64748B;
+  --color-glow: rgba(37, 99, 235, 0.15);
+  --color-border-glow: rgba(37, 99, 235, 0.35);
+  --theme-gradient: linear-gradient(135deg, #2563EB 0%, #1D4ED8 50%, #10B981 100%);
+
+  /* Liquid Glass CSS Variables */
+  --glass-bg: rgba(255, 255, 255, 0.95);
+  --glass-card-bg: #FFFFFF;
+  --glass-border: #E2E8F0;
+  --glass-border-hover: var(--color-border-glow);
+  --glass-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.08), inset 0 1px 1px rgba(255, 255, 255, 1);
+  --glass-blur: blur(12px);
+}
+
+.dark {
+  --color-primary: #3B82F6;
+  --color-primary-hover: #2563EB;
+  --color-primary-light: rgba(59, 130, 246, 0.15);
+  --color-primary-rgb: 59, 130, 246;
+  --color-accent: #14B8A6;
+  --color-accent-hover: #0D9488;
+  --color-accent-light: rgba(20, 184, 166, 0.15);
+  --color-success: #10B981;
+  --color-warning: #F59E0B;
+  --color-danger: #EF4444;
+  --color-app-bg: #0B1220;
+  --color-sidebar-bg: #111827;
+  --color-topbar-bg: #1E293B;
+  --color-card-bg: #1E293B;
+  --color-card-border: rgba(59, 130, 246, 0.2);
+  --color-surface-elevated: #1E293B;
+  --color-app-bg-light: #F8FAFC;
+  --color-text: #F8FAFC;
+  --color-text-secondary: #94A3B8;
+  --color-glow: rgba(59, 130, 246, 0.25);
+  --color-border-glow: rgba(59, 130, 246, 0.45);
+  --theme-gradient: linear-gradient(135deg, #3B82F6 0%, #2563EB 50%, #14B8A6 100%);
+
+  --glass-bg: var(--color-card-bg);
+  --glass-card-bg: var(--color-card-bg);
+  --glass-border: var(--color-card-border);
+  --glass-border-hover: var(--color-border-glow);
+  --glass-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.65), inset 0 1px 1px rgba(255, 255, 255, 0.08);
+  --glass-blur: blur(16px);
+}
+
+@layer base {
+  body {
+    transition: background-color 0.25s ease-in-out, color 0.25s ease-in-out, border-color 0.25s ease-in-out;
+  }
+
+  /* Form Inputs Focus Glows */
+  input:focus, select:focus, textarea:focus {
+    outline: none !important;
+    border-color: var(--color-primary) !important;
+    box-shadow: 0 0 0 3px var(--color-glow) !important;
+  }
+}
+
+/* Light Mode Body & Canvas */
+:not(.dark) body,
+:not(.dark) .min-h-screen {
+  background-color: var(--color-app-bg, #F1F5F9) !important;
+  color: var(--color-text, #0F172A);
+}
+
+/* Dark Mode Body & Outer Canvas Background */
+.dark body,
+.dark .min-h-screen,
+.dark.min-h-screen {
+  background-color: var(--color-app-bg) !important;
+  color: var(--color-text, #F8FAFC);
+}
+
+/* Dark Mode Primary Card & Panel Background Override */
+.dark .bg-slate-900,
+.dark .bg-slate-950,
+.dark .bg-slate-800,
+.dark .bg-emerald-950,
+.dark .bg-indigo-950,
+.dark .bg-rose-950,
+.dark .bg-amber-950,
+.dark .bg-cyan-950,
+.dark .theme-card {
+  background-color: var(--color-card-bg);
+  border-color: var(--color-card-border);
+}
+
+/* Inner Elevated Surfaces & Table Headers in Dark Mode */
+.dark thead,
+.dark th,
+.dark .theme-surface-elevated {
+  background-color: var(--color-surface-elevated);
+  color: var(--color-text, #F8FAFC);
+}
+
+/* Table Headers in Light Mode */
+:not(.dark) thead,
+:not(.dark) th {
+  background-color: #F1F5F9;
+  color: #0F172A;
+}
+
+/* Form Inputs Contrast */
+.dark input:not([type="checkbox"]):not([type="radio"]),
+.dark select,
+.dark textarea {
+  background-color: rgba(0, 0, 0, 0.35);
+  border-color: var(--color-card-border);
+  color: #F8FAFC;
+}
+
+:not(.dark) input:not([type="checkbox"]):not([type="radio"]),
+:not(.dark) select,
+:not(.dark) textarea {
+  background-color: #FFFFFF;
+  border-color: #CBD5E1;
+  color: #0F172A;
+}
+
+/* Primary Theme Accent Utilities */
+.theme-accent-bg {
+  background-color: var(--color-primary) !important;
+}
+.theme-accent-border {
+  border-color: var(--color-primary) !important;
+}
+.theme-accent-text {
+  color: var(--color-primary) !important;
+}
+
+/* Liquid Glass UI Core Classes */
+.liquid-glass {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur) saturate(180%);
+  -webkit-backdrop-filter: var(--glass-blur) saturate(180%);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+.liquid-glass-card {
+  position: relative;
+  background: var(--glass-card-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  transition: all 0.25s ease-in-out;
+}
+
+.dark .liquid-glass-card {
+  color: #F8FAFC;
+}
+
+/* Global Dark Mode High Contrast Text System (Guarantees Perfect Visibility) */
+.dark :is(.text-slate-950, .text-slate-900, .text-slate-800):not([class*="dark:text-"]):not([class*="dark:hover:text-"]) {
+  color: #F8FAFC !important;
+}
+
+.dark :is(.text-slate-700, .text-slate-600):not([class*="dark:text-"]):not([class*="dark:hover:text-"]) {
+  color: #E2E8F0 !important;
+}
+
+.dark :is(.text-slate-500, .text-slate-400):not([class*="dark:text-"]):not([class*="dark:hover:text-"]) {
+  color: #94A3B8 !important;
+}
+
+.liquid-glass-card:hover {
+  border-color: var(--color-border-glow);
+  box-shadow: 0 12px 30px -5px var(--color-glow);
+}
+
+.liquid-glass-pill {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.3);
+  border-radius: 9999px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.5);
+}
+
+.yg-gradient-btn {
+  background: var(--theme-gradient) !important;
+  color: #ffffff !important;
+  transition: all 0.2s ease-in-out;
+}
+.yg-gradient-btn:hover {
+  filter: brightness(0.92);
+}

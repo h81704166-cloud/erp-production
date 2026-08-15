@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Billkart ERP & POS Billing Software</title>
+    <script>
+      (function() {
+        try {
+          var savedMode = localStorage.getItem('erp_theme_mode');
+          var mode = 'night';
+          if (savedMode) {
+            try { savedMode = JSON.parse(savedMode); } catch(e) {}
+            savedMode = String(savedMode).replace(/^"|"$/g, '');
+            if (savedMode === 'day' || savedMode === 'night') {
+              mode = savedMode;
+            }
+          } else {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+              mode = 'day';
+            }
+          }
+          if (mode === 'night') {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+
+          var savedTheme = localStorage.getItem('erp_ui_theme') || localStorage.getItem('billkart_ui_theme') || 'emerald';
+          if (savedTheme) {
+            try { savedTheme = JSON.parse(savedTheme); } catch(e) {}
+            savedTheme = String(savedTheme).replace(/^"|"$/g, '');
+          }
+          document.documentElement.setAttribute('data-ui-theme', savedTheme || 'emerald');
+        } catch(e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

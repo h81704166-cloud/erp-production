@@ -1,0 +1,31 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Enterprise Cyber Security Headers & Anti-Attack Rules
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # Protect against Clickjacking
+    X-Frame-Options = "SAMEORIGIN"
+    # Prevent MIME Sniffing attacks
+    X-Content-Type-Options = "nosniff"
+    # Anti-XSS Filter
+    X-XSS-Protection = "1; mode=block"
+    # Force HTTPS Strict Transport Security (HSTS)
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+    # Cross-Origin Referrer Policy
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    # Hardware Permissions Policy (Camera allowed for barcode scanner)
+    Permissions-Policy = "camera=(self), microphone=(), geolocation=(), payment=()"
+    # Content Security Policy (Allows Supabase, Google Fonts, and local camera streams)
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https:; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://*.googleapis.com; media-src 'self' blob:; object-src 'none';"
+
